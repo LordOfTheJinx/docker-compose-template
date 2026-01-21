@@ -21,14 +21,26 @@
             - url: https://ishadeed.com/feed.xml
               title: Ahmad Shadeed
 
-        - type: twitch-channels
-          channels:
-            - theprimeagen
-            - j_blow
-            - giantwaffle
-            - cohhcarnage
-            - christitustech
-            - EJ_SA
+        - type: monitor
+          cache: 1m
+          title: Services
+          sites:
+            - title: pi-hole
+              url: http://192.168.1.2:8089/admin
+              icon: /assets/pihole-logo.svg
+            - title: prometheus
+              url: http://192.168.1.17:32410/query
+              icon: /assets/promethesu.svg
+            - title: Grafana
+              url: http://192.168.1.17:32411
+              icon: /assets/grafana_icon.svg
+
+        - type: dns-stats
+          service: pihole-v6
+          url: http://192.168.1.2:8089
+          username: dietpi
+          password: ${PIHOLE_PASSWORD}
+          cache: 30m
 
     - size: full
       widgets:
@@ -57,24 +69,28 @@
     - size: small
       widgets:
         - type: weather
-          location: London, United Kingdom
+          location: Bengaluru, India
+        - type: weather
+          location: Visakhapatnam, India
           units: metric # alternatively "imperial"
-          hour-format: 12h # alternatively "24h"
+          hour-format: 24h # alternatively "24h"
           # Optionally hide the location from being displayed in the widget
           # hide-location: true
 
-        - type: markets
-          markets:
-            - symbol: SPY
-              name: S&P 500
-            - symbol: BTC-USD
-              name: Bitcoin
-            - symbol: NVDA
-              name: NVIDIA
-            - symbol: AAPL
-              name: Apple
-            - symbol: MSFT
-              name: Microsoft
+        # - type: markets
+        #   markets:
+        #     - symbol: NSE
+        #       name: NSE-NIFTY
+        #       chart-link-template: https://www.tradingview.com/chart/?symbol={SYMBOL}
+        #     - symbol: NSE:NIFTYBEES
+        #       name: NIFTYBEES
+        #       chart-link-template: https://www.tradingview.com/chart/?symbol={SYMBOL}
+
+        # - type: clock
+        #   hour-format: 24h
+        #   timezones:
+        #   - timezone: Asia/Calcutta
+        #     label: Bengaluru  
 
         - type: releases
           cache: 1d
@@ -82,7 +98,7 @@
           # read-only token from your Github account settings and use it here to increase the limit.
           # token: ...
           repositories:
+            - kubernetes/kubernetes
             - glanceapp/glance
-            - go-gitea/gitea
             - immich-app/immich
             - syncthing/syncthing
